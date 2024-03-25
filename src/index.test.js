@@ -39,4 +39,16 @@ describe("Gameboard", () => {
       }
     }
   });
+
+  test("Placing ships horizontally on board", () => {
+    const ship = new index.Ship(3);
+    const position = { x: 2, y: 3};
+    const orientation = "horizontal";
+    
+    // Place the ship
+    board.placeShip(ship, position, orientation);
+    
+    // Verify if ship is placed at correct coorrdinates
+    expect(board.grid[position.x][position.y]).toBe(ship);
+  });
 })
