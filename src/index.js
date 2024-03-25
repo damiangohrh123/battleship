@@ -34,6 +34,11 @@ class Gameboard {
         this.grid[position.x][position.y + i] = ship;
       }
     }
+    if (orientation === "vertical") {
+      for (let i = 0; i < ship.length; i++) {
+        this.grid[position.x + i][position.y] = ship;
+      }
+    }
   }
 }
 

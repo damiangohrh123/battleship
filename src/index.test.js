@@ -63,6 +63,6 @@ describe("Gameboard", () => {
     // Verify if ship is placed at correct coordinates and orientation
     expect(board.grid[position.x][position.y]).toBe(ship);
     expect(board.grid[position.x + 1][position.y]).toBe(ship);
-    expect(board.grid[position.x + 2][position.y].toBe(ship));
+    expect(board.grid[position.x + 2][position.y]).toBe(ship);
   });
 })
