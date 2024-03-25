@@ -22,12 +22,20 @@ describe("Gameboard", () => {
   let board;
 
   beforeEach(() => {
-    board = new Gameboard();
+    board = new index.Gameboard();
   });
 
-  test("Gameboard creation", () => {
-    // Check the rows and columms of the gameboad
-    expect(board.grid.length).toBe(10);
-    expect(board.grid[0].length).toBe(10);
+  test("Gameboard creation with correct dimensions", () => {
+    // Check if grid has correct dimensions
+    expect(board.grid.length).toBe(100);
+
+    // Check if each cell contains the expected coordinates
+    let index = 0;
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        expect(board.grid[index]).toEqual({ x: j, y: i });
+        index++;
+      }
+    }
   });
 })
