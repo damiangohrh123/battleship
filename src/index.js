@@ -10,16 +10,18 @@ class Ship {
 }
 
 class Gameboard {
-  constructor() {
-    this.grid = this.createGameboard(10, 10);
+  constructor(row, col) {
+    this.grid = this.createGameboard(row, col);
   }
 
-  createGameboard(rows, cols) {
+  createGameboard(row, col) {
     let grid = [];
-    for(let i = 0; i < rows; i++) {
-      for (let j = 0; j < cols; j++) {
-        grid.push({ x: j, y: i});
+    for(let i = 0; i < row; i++) {
+      let row = [];
+      for (let j = 0; j < col; j++) {
+        row.push({ x: i, y: j});
       }
+      grid.push(row);
     }
     return grid;
   }
