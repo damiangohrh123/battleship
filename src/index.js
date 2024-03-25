@@ -12,7 +12,9 @@ class Ship {
 
 class Gameboard {
   constructor(row, col) {
-    this.grid = this.createGameboard(row, col);
+    this.rows = row;
+    this.cols = col;
+    this.grid = this.createGameboard(this.rows, this.cols);
   }
 
   createGameboard(row, col) {
@@ -28,7 +30,10 @@ class Gameboard {
   }
 
   placeShip(ship, position, orientation) {
-    if (position.x >= 10 || position.y >= 10) {
+    if (
+      (orientation === "horizontal" && ship.length + position.x > this.cols) ||
+      (orientation === "vertical" && ship.length + position.y > this.rows)
+    ) {
       throw new Error("Ship is out of bounds.");
     }
 
