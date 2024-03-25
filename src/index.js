@@ -22,7 +22,7 @@ class Gameboard {
     for(let i = 0; i < row; i++) {
       let row = [];
       for (let j = 0; j < col; j++) {
-        row.push({ x: i, y: j});
+        row.push({ x: i, y: j, isHit: false});
       }
       grid.push(row);
     }
@@ -48,6 +48,10 @@ class Gameboard {
         this.grid[position.x + i][position.y] = ship;
       }
     }
+  }
+
+  recieveAttack(position) {
+    this.grid[position.x][position.y].isHit = true;
   }
 }
 

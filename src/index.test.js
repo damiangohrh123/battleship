@@ -28,7 +28,7 @@ describe("Gameboard", () => {
       // Check if each cell contains the expected coordinates
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
-          expect(board.grid[i][j]).toEqual({ x: i, y: j });
+          expect(board.grid[i][j]).toEqual({x: i, y: j, isHit: false});
         }
       }
     });
@@ -72,7 +72,7 @@ describe("Gameboard", () => {
   describe("Recieve attacks", () => {
     test("Check if attack hits the water", () => {
       board.recieveAttack({x: 5, y: 5});
-      expect(board.grid[5][5].hit).toBe(true);
+      expect(board.grid[5][5].isHit).toBe(true);
     });
   });
 })
