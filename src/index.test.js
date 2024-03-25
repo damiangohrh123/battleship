@@ -53,7 +53,7 @@ describe("Gameboard", () => {
     expect(board.grid[position.x][position.y + 2]).toBe(ship);
   });
 
-  test ("Placing ships vertically on board", () => {
+  test("Placing ships vertically on board", () => {
     const ship = new index.Ship(3, "submarine");
     const position = { x: 2, y: 3};
     const orientation = "vertical";
@@ -64,5 +64,20 @@ describe("Gameboard", () => {
     expect(board.grid[position.x][position.y]).toBe(ship);
     expect(board.grid[position.x + 1][position.y]).toBe(ship);
     expect(board.grid[position.x + 2][position.y]).toBe(ship);
+  });
+
+  test("Placing ships out of bounds", () => {
+    const ship = new index.Ship(3, "submarine");
+    const position = { x: 10, y: 10};
+    const orientation = "horizontal";
+
+    board.placeShip(ship, position, orientation);
+
+    // Verify if ship is not placed
+    try {
+      board.placeShip(ship, position, orientation);
+    } catch(error) {
+      expect(error.message).toBe("Ship is out of bounds.")
+    }
   });
 })
