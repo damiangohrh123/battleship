@@ -71,8 +71,6 @@ describe("Gameboard", () => {
     const position = { x: 10, y: 10};
     const orientation = "horizontal";
 
-    board.placeShip(ship, position, orientation);
-
     // Verify if ship is not placed
     try {
       board.placeShip(ship, position, orientation);

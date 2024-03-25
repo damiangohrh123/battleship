@@ -28,6 +28,10 @@ class Gameboard {
   }
 
   placeShip(ship, position, orientation) {
+    if (position.x >= 10 || position.y >= 10) {
+      throw new Error("Ship is out of bounds.");
+    }
+
     // Horizonatal placement
     if (orientation === "horizontal") {
       for (let i = 0; i < ship.length; i++) {
