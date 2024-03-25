@@ -5,7 +5,7 @@ describe("Ship", () => {
   let ship;
 
   beforeEach(() => {
-    ship = new index.Ship(3);
+    ship = new index.Ship(3, "submarine");
   });
 
   test("Ship creation", () => {
@@ -41,14 +41,16 @@ describe("Gameboard", () => {
   });
 
   test("Placing ships horizontally on board", () => {
-    const ship = new index.Ship(3);
+    const ship = new index.Ship(3, "submarine");
     const position = { x: 2, y: 3};
     const orientation = "horizontal";
     
     // Place the ship
     board.placeShip(ship, position, orientation);
-    
+
     // Verify if ship is placed at correct coorrdinates
     expect(board.grid[position.x][position.y]).toBe(ship);
+    expect(board.grid[position.x][position.y + 1]).toBe(ship);
+    expect(board.grid[position.x][position.y + 2]).toBe(ship);
   });
 })

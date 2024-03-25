@@ -1,6 +1,7 @@
 class Ship {
-  constructor(length) {
+  constructor(length, name) {
     this.length = length;
+    this.name = name;
     this.hits = 0;
   }
 
@@ -24,6 +25,15 @@ class Gameboard {
       grid.push(row);
     }
     return grid;
+  }
+
+  placeShip(ship, position, orientation) {
+    // Horizonatal placement
+    if (orientation === "horizontal") {
+      for (let i = 0; i < ship.length; i++) {
+        this.grid[position.x][position.y + i] = ship;
+      }
+    }
   }
 }
 
