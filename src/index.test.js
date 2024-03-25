@@ -13,7 +13,6 @@ describe("Ship", () => {
 
 describe("Gameboard", () => {
   let board;
-
   beforeEach(() => {
     board = new index.Gameboard(10, 10);
   });
@@ -21,7 +20,6 @@ describe("Gameboard", () => {
   describe("Gameboard creation", () => {
 
     test("Gameboard creation with correct dimensions (10 x 10)", () => {
-      // Check if grid has correct dimensions
       expect(board.grid.length).toBe(10);
       board.grid.forEach(row => {
         expect(row.length).toBe(10);
@@ -38,22 +36,17 @@ describe("Gameboard", () => {
 
   describe("Placing ship", () => {
     let ship;
-
     beforeEach(() => {
       ship = new index.Ship(3, "submarine");
     });
 
     test("Placing ships horizontally & vertically on board", () => {
       board.placeShip(ship, {x: 2, y: 3}, "horizontal");
-  
-      // Verify if ship is placed at correct coordinates and orientation
       expect(board.grid[2][3]).toBe(ship);
       expect(board.grid[2][3 + 1]).toBe(ship);
       expect(board.grid[2][3 + 2]).toBe(ship);
 
       board.placeShip(ship, {x: 2, y: 3}, "vertical");
-  
-      // Verify if ship is placed at correct coordinates and orientation
       expect(board.grid[2][3]).toBe(ship);
       expect(board.grid[2 + 1][3]).toBe(ship);
       expect(board.grid[2 + 2][3]).toBe(ship);
@@ -76,4 +69,10 @@ describe("Gameboard", () => {
     });
   });
 
+  describe("Recieve attacks", () => {
+    test("Check if attack hits the water", () => {
+      board.recieveAttack({x: 5, y: 5});
+      expect(board.grid[5][5].hit).toBe(true);
+    });
+  });
 })
