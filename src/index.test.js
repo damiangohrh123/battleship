@@ -1,6 +1,5 @@
 const index = require("./index");
 
-
 describe("Ship", () => {
   const ship = new index.Ship(3, "submarine");
 
@@ -35,34 +34,29 @@ describe("Gameboard", () => {
   });
 
   describe("Placing ship", () => {
-    let ship;
-    beforeEach(() => {
-      ship = new index.Ship(3, "submarine");
+    test("Placing ships horizontally", () => {
+      board.placeShip(3, "submarine", {x: 2, y: 3}, "horizontal");
+      const horizontalShipPositions = [{ x: 2, y: 3 }, { x: 3, y: 3 }, { x: 4, y: 3 }];
+      expect(board.ships[0].positions).toEqual(horizontalShipPositions);
     });
 
-    test("Placing ships horizontally & vertically on board", () => {
-      board.placeShip(ship, {x: 2, y: 3}, "horizontal");
-      expect(board.grid[2][3]).toBe(ship);
-      expect(board.grid[2][3 + 1]).toBe(ship);
-      expect(board.grid[2][3 + 2]).toBe(ship);
-
-      board.placeShip(ship, {x: 2, y: 3}, "vertical");
-      expect(board.grid[2][3]).toBe(ship);
-      expect(board.grid[2 + 1][3]).toBe(ship);
-      expect(board.grid[2 + 2][3]).toBe(ship);
+    test("Placing ships vertically", () => {
+      board.placeShip(3, "submarine", {x: 2, y: 3}, "vertical");
+      const verticalShipPositions = [{ x: 2, y: 3 }, { x: 2, y: 4 }, { x: 2, y: 5 }];
+      expect(board.ships[0].positions).toEqual(verticalShipPositions);
     });
   
     test("Placing ships out of bounds", () => {
       // Try placing ship out of bounds initally
       try {
-        board.placeShip(ship, {x: 10, y: 10}, "horizontal");
+        board.placeShip(3, "submarine", {x: 10, y: 10}, "horizontal");
       } catch(error) {
         expect(error.message).toBe("Ship is out of bounds.");
       }
 
       // Try placing ship in bounds initially, but the length of ship will be out of bounds
       try {
-        board.placeShip(ship, {x: 8, y: 8}, "horizontal");
+        board.placeShip(3, "submarine", {x: 8, y: 8}, "horizontal");
       } catch(error) {
         expect(error.message).toBe("Ship is out of bounds.")
       }
@@ -74,5 +68,12 @@ describe("Gameboard", () => {
       board.recieveAttack({x: 5, y: 5});
       expect(board.grid[5][5].isHit).toBe(true);
     });
+
+    test("Check if attack hits a ship", () => {
+      board.placeShip(3, "submarine", {x: 5, y: 5}, "horizontal");
+      board.recieveAttack({x: 5, y: 5});
+      expect(board.grid[5][5].isHit).toBe(true);
+      expect(board.ships[0].hits).toBe(1);
+    })
   });
 })

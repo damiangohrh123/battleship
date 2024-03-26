@@ -3,10 +3,19 @@ class Ship {
     this.length = length;
     this.name = name;
     this.hits = 0;
+    this.positions = [];
   }
 
   isSunk() {
     return (this.hits >= this.length) ? true : false;
+  }
+
+  hit() {
+    this.hits += 1;
+  }
+
+  addPosition(x, y) {
+    this.positions.push({x, y});
   }
 }
 
@@ -15,6 +24,7 @@ class Gameboard {
     this.rows = row;
     this.cols = col;
     this.grid = this.createGameboard(this.rows, this.cols);
+    this.ships = [];
   }
 
   createGameboard(row, col) {
@@ -29,7 +39,11 @@ class Gameboard {
     return grid;
   }
 
-  placeShip(ship, position, orientation) {
+  placeShip(length, name, position, orientation) {
+    // Create a new ship
+    const ship = new Ship(length, name);
+
+    // Make sure ship is within bounds
     if (
       (orientation === "horizontal" && ship.length + position.x > this.cols) ||
       (orientation === "vertical" && ship.length + position.y > this.rows)
@@ -37,23 +51,35 @@ class Gameboard {
       throw new Error("Ship is out of bounds.");
     }
 
-    // Horizonatal placement
-    if (orientation === "horizontal") {
-      for (let i = 0; i < ship.length; i++) {
-        this.grid[position.x][position.y + i] = ship;
+    // Update the positions of the ship object
+    for (let i = 0; i < ship.length; i++) {
+      if (orientation === "horizontal") {
+        ship.addPosition(position.x + i, position.y);
+      }
+      if (orientation === "vertical") {
+        ship.addPosition(position.x, position.y + i);
       }
     }
-    if (orientation === "vertical") {
-      for (let i = 0; i < ship.length; i++) {
-        this.grid[position.x + i][position.y] = ship;
-      }
-    }
+
+    // Update the ships array
+    this.ships.push(ship);
+
+    return ship;
   }
 
-  recieveAttack(position) {
-    this.grid[position.x][position.y].isHit = true;
+  recieveAttack(attackPosition) {
+    this.grid[attackPosition.x][attackPosition.y].isHit = true;
+    for (const ship of this.ships) {
+      for (const position of ship.positions) {
+        if (attackPosition.x === position.x && attackPosition.y === position.y) {
+          ship.hit();
+        }
+      }
+    }
   }
 }
+
+const board = new Gameboard(10, 10);
 
 module.exports = {
   Ship,
