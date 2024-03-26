@@ -64,16 +64,13 @@ describe("Gameboard", () => {
   });
 
   describe("Recieve attacks", () => {
-    test("Check if attack hits the water", () => {
-      board.recieveAttack({x: 5, y: 5});
-      expect(board.grid[5][5].isHit).toBe(true);
+    test("Check if attack hits a ship and has sunk", () => {
+      board.placeShip(3, "submarine", {x: 2, y: 3}, "horizontal");
+      board.recieveAttack({x: 2, y: 3});
+      board.recieveAttack({x: 3, y: 3});
+      board.recieveAttack({x: 4, y: 3});
+      expect(board.grid[2][3].isHit).toBe(true);
+      expect(board.ships).toStrictEqual([]);
     });
-
-    test("Check if attack hits a ship", () => {
-      board.placeShip(3, "submarine", {x: 5, y: 5}, "horizontal");
-      board.recieveAttack({x: 5, y: 5});
-      expect(board.grid[5][5].isHit).toBe(true);
-      expect(board.ships[0].hits).toBe(1);
-    })
   });
 })

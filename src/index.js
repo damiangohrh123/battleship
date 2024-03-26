@@ -10,10 +10,6 @@ class Ship {
     return (this.hits >= this.length) ? true : false;
   }
 
-  hit() {
-    this.hits += 1;
-  }
-
   addPosition(x, y) {
     this.positions.push({x, y});
   }
@@ -69,10 +65,19 @@ class Gameboard {
 
   recieveAttack(attackPosition) {
     this.grid[attackPosition.x][attackPosition.y].isHit = true;
-    for (const ship of this.ships) {
+
+    // Search through array of ships' position to check if it was hit
+    for (let i = 0; i < this.ships.length; i++) {
+      const ship = this.ships[i];
       for (const position of ship.positions) {
+
         if (attackPosition.x === position.x && attackPosition.y === position.y) {
-          ship.hit();
+          ship.hits += 1;
+
+          if (ship.isSunk()) {
+            // Remove ship from ships array
+            this.ships.splice(i, 1);
+          }
         }
       }
     }
