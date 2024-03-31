@@ -1,0 +1,36 @@
+.content {
+  display: flex;
+  justify-content: space-around;
+  gap: 50px;
+}
+
+.playerGameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: repeat(10, 50px);
+}
+
+.computerGameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: repeat(10, 50px);
+}
+
+.cell {
+  background-color: rgb(139, 206, 234);
+  border: 1px solid white;
+}
+
+.ship {
+  background-color: rgb(115, 140, 151);
+  border: 1px solid white;
+}
+
+.isHit {
+  background-color: rgb(162, 191, 204);
+  border: 1px solid white;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+}
