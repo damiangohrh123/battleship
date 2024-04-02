@@ -83,7 +83,8 @@ class Gameboard {
       }
 
       // Update the ships array
-      this.ships.push(ship); 
+      this.ships.push(ship);
+      console.log(this.ships);
 
     } else {
       throw new Error("Ship cannot be placed here!");
@@ -215,7 +216,7 @@ class UI {
         cell.setAttribute("id", `cell-${i}-${j}`);
 
         // Check if the cell corresponds to a ship position
-        const isShipPosition = gameboard.gameboard[j][i] instanceof Ship;
+        const isShipPosition = gameboard.gameboard[i][i] instanceof Ship;
         cell.classList.add((isShipPosition) ? "ship" : "cell");
 
         if (gameboard.gameboard[j][i] instanceof Ship) {
@@ -253,7 +254,7 @@ class UI {
         if (gameboard.gameboard[i][j].isHit) {
           cell.classList.add("isHit");
         }
-        if (gameboard.gameboard[j][i] instanceof Ship) {
+        if (gameboard.gameboard[i][j] instanceof Ship) {
           cell.classList.add("ship");
         }
       }
